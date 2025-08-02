@@ -42,9 +42,9 @@ export function Layout({ children }) {
                             opacity: 0.6,
                         }}
                     >
-                        <a href="https://tympanus.net/codrops/?p=96765">Article</a>
+                        {/* <a href="https://tympanus.net/codrops/?p=96765">Article</a>
                         <a href="https://github.com/DGFX/codrops-kinetic-images">Code</a>
-                        <a href="https://tympanus.net/codrops/demos/">All demos</a>
+                        <a href="https://tympanus.net/codrops/demos/">All demos</a> */}
                     </nav>
                     <nav
                         style={{
@@ -64,6 +64,45 @@ export function Layout({ children }) {
                 </div>
             </Header>
             {children}
+            <div className="relative z-[1000] p-8 bg-black/80 backdrop-blur-[10px] border-t border-white/10">
+                <div className="flex w-full gap-2 flex-col">
+                    <h2 className="m-0 text-xl font-normal">About This Demo</h2>
+                    <div className="flex w-full gap-2 text-sm opacity-80 flex-wrap">
+                        <span>Custom scroll behavior along banner normal vector</span>
+                        <span>•</span>
+                        <span>React Three Fiber implementation</span>
+                        <span>•</span>
+                        <span>WebGL kinetic images</span>
+                    </div>
+                    <nav className="flex w-full gap-2 text-sm opacity-60 mt-2">
+                        <a
+                            href="https://tympanus.net/codrops/?p=96765"
+                            className="hover:opacity-100 transition-opacity"
+                        >
+                            Article
+                        </a>
+                        <a
+                            href="https://github.com/DGFX/codrops-kinetic-images"
+                            className="hover:opacity-100 transition-opacity"
+                        >
+                            Source Code
+                        </a>
+                        <a
+                            href="https://tympanus.net/codrops/demos/"
+                            className="hover:opacity-100 transition-opacity"
+                        >
+                            All Demos
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <Footer>
+                <div className="flex w-full gap-2 text-sm opacity-60 justify-center">
+                    <span>© 2025 Kinetic Images Demo</span>
+                    <span>•</span>
+                    <span>Built with React Three Fiber</span>
+                </div>
+            </Footer>
             <Scene
                 style={{
                     position: 'fixed',
@@ -76,17 +115,6 @@ export function Layout({ children }) {
                 eventSource={ref}
                 eventPrefix="client"
             />
-            <Footer>
-                <Link href="./" className={pathname === '/' ? 'active' : ''}>
-                    Tower
-                </Link>
-                <Link href="./paper" className={pathname === '/paper' ? 'active' : ''}>
-                    Paper
-                </Link>
-                <Link href="./spiral" className={pathname === '/spiral' ? 'active' : ''}>
-                    Spiral
-                </Link>
-            </Footer>
         </div>
     );
 }

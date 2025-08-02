@@ -1,6 +1,6 @@
 export const metadata = {
-    title: 'Codrops - Kinetic Images',
-    description: 'Made by Dominik Fojcik',
+    title: 'Balazshimself | Portfolio',
+    description: 'Made by Balázs Kovács',
 };
 
 export default metadata;

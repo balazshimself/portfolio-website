@@ -44,7 +44,6 @@ const nextConfig = {
         return config;
     },
     eslint: {
-        // TODO: Temporary fix, disable later
         ignoreDuringBuilds: true,
     },
 };
