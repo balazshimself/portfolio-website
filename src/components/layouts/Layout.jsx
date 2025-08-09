@@ -2,16 +2,13 @@
 
 import { useRef } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/ui/modules";
+import styles from "./page.module.scss";
 
 const Scene = dynamic(() => import("@/webgl/Scene"), { ssr: false });
 
 export function Layout({ children }) {
   const ref = useRef(null);
-  const router = useRouter();
 
   return (
     <>
@@ -26,7 +23,9 @@ export function Layout({ children }) {
         }}
       >
         {children}
-        <Scene />
+        <div className={styles.page}>
+          <Scene />
+        </div>
       </div>
       <Footer
         size={50}

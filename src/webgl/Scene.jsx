@@ -9,13 +9,11 @@ import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Preload, PerspectiveCamera } from "@react-three/drei";
 import { useRouter } from "next/navigation";
-import { r3f } from "@/webgl/helpers/global";
-import { View } from "./View";
-import styles from "./page.module.scss";
+import { r3f } from "@/webgl/components/global";
 
 import images from "@/data/images";
 import { useCollageTexture } from "@/hooks";
-import { Billboard, Banner } from "@/components/webgl";
+import { Billboard, Banner } from "@/webgl/components/Kinetic";
 import { Loader } from "@/components/ui/modules";
 
 // ===== External control API ==================================================
@@ -195,29 +193,22 @@ export default function Scene(props) {
   const { texture, dimensions, isLoading } = useCollageTexture(images);
 
   return (
-    <div className={styles.page}>
-      {/* <View className={styles.view} orbit={false}> */}
-      <Canvas {...props}>
-        {/* Persistent camera for the hoisted scene */}
-        {!isLoading && (
-          <PerspectiveCamera
-            makeDefault
-            fov={7}
-            near={0.01}
-            far={100000}
-            position={[0, 0, 60]}
-          />
-        )}
-        {/* Hoisted home 3D (duplicate with page.jsx until that file is cleaned) */}
-        {!isLoading && texture && (
-          <InfiniteCylinderGroup texture={texture} dimensions={dimensions} />
-        )}
-        {/* Existing portal for legacy <View> usage */}
-        <r3f.Out />
-        <Preload all />
-        {isLoading && <Loader />}
-      </Canvas>
-      {/* </View> */}
-    </div>
+    <Canvas {...props}>
+      {!isLoading && (
+        <PerspectiveCamera
+          makeDefault
+          fov={7}
+          near={0.01}
+          far={100000}
+          position={[0, 0, 60]}
+        />
+      )}
+      {!isLoading && texture && (
+        <InfiniteCylinderGroup texture={texture} dimensions={dimensions} />
+      )}
+      {/* <r3f.Out /> */}
+      <Preload all />
+      {isLoading && <Loader />}
+    </Canvas>
   );
 }

@@ -3,7 +3,10 @@
 import * as THREE from "three";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import "@/webgl/materials/MeshImageMaterial";
+import { useTexture } from "@react-three/drei";
+
+import "@/webgl/components/MeshImageMaterial";
+import "@/webgl/components/MeshBannerMaterial";
 
 function setupCylinderTextureMapping(texture, dimensions, radius, height) {
   const cylinderCircumference = 2 * Math.PI * radius;
@@ -25,7 +28,7 @@ function setupCylinderTextureMapping(texture, dimensions, radius, height) {
   texture.offset.y = (1 - texture.repeat.y) / 2;
 }
 
-function Billboard({ texture, dimensions, radius = 5, ...props }) {
+export function Billboard({ texture, dimensions, radius = 5, ...props }) {
   const ref = useRef(null);
 
   setupCylinderTextureMapping(texture, dimensions, radius, 2);
@@ -46,4 +49,31 @@ function Billboard({ texture, dimensions, radius = 5, ...props }) {
   );
 }
 
-export default Billboard;
+export function Banner({ radius = 1.6, ...props }) {
+  const ref = useRef(null);
+
+  const texture = useTexture("/banner.jpg");
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+  useFrame((state, delta) => {
+    if (!ref.current) return;
+    const material = ref.current.material;
+    if (material.map) material.map.offset.x += delta / 30;
+  });
+
+  return (
+    <mesh ref={ref} {...props}>
+      <cylinderGeometry
+        args={[radius, radius, radius * 0.07, radius * 80, radius * 10, true]}
+      />
+      <meshBannerMaterial
+        map={texture}
+        map-anisotropy={16}
+        map-repeat={[15, 1]}
+        side={THREE.DoubleSide}
+        toneMapped={false}
+        backfaceRepeatX={0.2}
+      />
+    </mesh>
+  );
+}
